@@ -5,6 +5,7 @@ const resetBtn = document.getElementById('reset');
 
 
 const maxValue = 10;
+const minValue = 0;
 const initialCount = 0; // Set initial count
 // Initialize count variable    
 let count = Number(localStorage.getItem('counter_value')) || initialCount;
@@ -25,6 +26,10 @@ incrementBtn.addEventListener('click', () => {
 });
 
 decrementBtn.addEventListener('click', () => {
+  if (count <= minValue) {
+    showModal(`Minimum value of ${minValue} reached!`);
+    return;
+  }
   count--;
   updateCounter();
 });
