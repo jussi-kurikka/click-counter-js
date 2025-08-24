@@ -5,15 +5,18 @@ const resetBtn = document.getElementById('reset');
 
 
 const maxValue = 10;
-const minValue = 0;
+const minValue = -10;
 const initialCount = 0; // Set initial count
 // Initialize count variable    
 let count = Number(localStorage.getItem('counter_value')) || initialCount;
-counter.textContent = count;
+updateCounter();
 
 function updateCounter() {
   counter.textContent = count;
   localStorage.setItem('counter_value', count);
+  if (count > 0) counter.style.color = 'green';
+  else if (count < 0) counter.style.color = 'red';
+  else counter.style.color = 'green';
 }
 
 incrementBtn.addEventListener('click', () => {
