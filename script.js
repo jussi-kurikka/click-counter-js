@@ -16,7 +16,7 @@ function updateCounter() {
   localStorage.setItem('counter_value', count);
   if (count > 0) counter.style.color = 'green';
   else if (count < 0) counter.style.color = 'red';
-  else counter.style.color = 'green';
+  else counter.style.color = 'black';
 }
 
 incrementBtn.addEventListener('click', () => {
