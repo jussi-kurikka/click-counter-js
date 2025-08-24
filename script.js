@@ -3,22 +3,48 @@ const incrementBtn = document.getElementById('increment');
 const decrementBtn = document.getElementById('decrement');
 const resetBtn = document.getElementById('reset');
 
-const initialCount = 10; // Set initial count
-counter.textContent = initialCount;
+
+const maxValue = 10;
+const initialCount = 0; // Set initial count
 // Initialize count variable    
-let count = initialCount;
+let count = Number(localStorage.getItem('counter_value')) || initialCount;
+counter.textContent = count;
+
+function updateCounter() {
+  counter.textContent = count;
+  localStorage.setItem('counter_value', count);
+}
 
 incrementBtn.addEventListener('click', () => {
-  count++;
-  counter.textContent = count;
+  if (count < maxValue) {
+    count++;
+    updateCounter();
+  } else {
+    showModal(`Maximum value of ${maxValue} reached!`);
+  }
 });
 
 decrementBtn.addEventListener('click', () => {
   count--;
-  counter.textContent = count;
+  updateCounter();
 });
 
 resetBtn.addEventListener('click', () => {
   count = initialCount;
-  counter.textContent = count;
+  updateCounter();
 });
+
+
+function showModal(message) {
+  document.getElementById('modal-message').textContent = message;
+  document.getElementById('modal').style.display = 'block';
+}
+document.getElementById('close-modal').onclick = function() {
+  document.getElementById('modal').style.display = 'none';
+};
+// Optional: hide when clicking outside the modal content
+window.onclick = function(event) {
+  if (event.target == document.getElementById('modal')) {
+    document.getElementById('modal').style.display = 'none';
+  }
+}
